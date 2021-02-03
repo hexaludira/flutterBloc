@@ -62,8 +62,10 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         yield CalculatorSuccess(result);
         break;
       case Operation.divide :
-        result = event.numberA / event.numberB;
+        result = event.numberA ~/ event.numberB;
+        break;
       default:
+        yield CalculatorFailed('Unknown operation');
     }
     
 
