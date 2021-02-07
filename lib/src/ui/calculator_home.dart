@@ -19,9 +19,10 @@ class CalculatorHome extends StatelessWidget {
   }
 }
 
-class MainProgram extends StatelessWidget {
+class MainProgram extends StatelessWidget { 
   final TextEditingController _controllerNumberA = TextEditingController();
   final TextEditingController _controllerNumberB = TextEditingController();
+  final CalculatorBloc _calculatorBloc = CalculatorBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,7 @@ class MainProgram extends StatelessWidget {
                       child: Text('+'),
                       onPressed: (){
                         //fitur penjumlahan
+                        calculate(Operation.plus);
                       }
                     ),
                   ),
@@ -65,6 +67,7 @@ class MainProgram extends StatelessWidget {
                       child: Text('-'),
                       onPressed: () {
                         //fitur pengurangan
+                        calculate(Operation.minus);
                       }
                     ),
                   ),
@@ -74,6 +77,7 @@ class MainProgram extends StatelessWidget {
                       child: Text('X'),
                       onPressed: () {
                         //fitur perkalian
+                        calculate(Operation.multiple);
                       }
                     ),
                   ),
@@ -83,6 +87,7 @@ class MainProgram extends StatelessWidget {
                       child: Text(':'),
                       onPressed: () {
                         //fungsi pembagian
+                        calculate(Operation.divide);
                       }
                     ),
                   ),
@@ -106,5 +111,12 @@ class MainProgram extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void calculate(Operation operation) {
+    int numberA = int.parse(_controllerNumberA.text.toString());
+    int numberB = int.parse(_controllerNumberB.text.toString());
+    _calculatorBloc.add(CalculatorEvent(operation, numberA, numberB));
+
   }
 }
