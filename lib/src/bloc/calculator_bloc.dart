@@ -63,6 +63,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         break;
       case Operation.divide :
         result = event.numberA ~/ event.numberB;
+        //tadi tidak ada yield nya makanya tidak bisa berubah nilai di UI nya
+        yield CalculatorSuccess(result);
         break;
       default:
         yield CalculatorFailed('Unknown operation');

@@ -12,7 +12,7 @@ class CalculatorHome extends StatelessWidget {
         title: Text("Flutter Bloc Calculator"),
       ),
       body: BlocProvider<CalculatorBloc>(
-        create: (context) => _calculatorBloc,
+        create: (_) => _calculatorBloc,
         child: MainProgram(),
       ),
     );
@@ -22,7 +22,7 @@ class CalculatorHome extends StatelessWidget {
 class MainProgram extends StatelessWidget { 
   final TextEditingController _controllerNumberA = TextEditingController();
   final TextEditingController _controllerNumberB = TextEditingController();
-  final CalculatorBloc _calculatorBloc = CalculatorBloc();
+  //final CalculatorBloc _calculatorBloc = CalculatorBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class MainProgram extends StatelessWidget {
                       child: Text('+'),
                       onPressed: (){
                         //fitur penjumlahan
-                        calculate(Operation.plus);
+                        calculate(Operation.plus, context);
                       }
                     ),
                   ),
@@ -67,7 +67,7 @@ class MainProgram extends StatelessWidget {
                       child: Text('-'),
                       onPressed: () {
                         //fitur pengurangan
-                        calculate(Operation.minus);
+                        calculate(Operation.minus, context);
                       }
                     ),
                   ),
@@ -77,7 +77,7 @@ class MainProgram extends StatelessWidget {
                       child: Text('X'),
                       onPressed: () {
                         //fitur perkalian
-                        calculate(Operation.multiple);
+                        calculate(Operation.multiple, context);
                       }
                     ),
                   ),
@@ -87,7 +87,7 @@ class MainProgram extends StatelessWidget {
                       child: Text(':'),
                       onPressed: () {
                         //fungsi pembagian
-                        calculate(Operation.divide);
+                        calculate(Operation.divide, context);
                       }
                     ),
                   ),
@@ -113,10 +113,12 @@ class MainProgram extends StatelessWidget {
     );
   }
 
-  void calculate(Operation operation) {
+  void calculate(Operation operation, BuildContext context) {
     int numberA = int.parse(_controllerNumberA.text.toString());
     int numberB = int.parse(_controllerNumberB.text.toString());
-    _calculatorBloc.add(CalculatorEvent(operation, numberA, numberB));
+    context.read<CalculatorBloc>().add(CalculatorEvent(operation, numberA, numberB));
+    
+    //_calculatorBloc.add(CalculatorEvent(operation, numberA, numberB));
 
   }
 }
